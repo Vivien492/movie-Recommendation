@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class Recommendation {
 
     private  MatrixManipulation matrixManipulation = new MatrixManipulation();
@@ -38,8 +43,33 @@ public class Recommendation {
                 }
             }
         }
-        return  weights;
+
+        return  result;
+
     }
 
-    
+
+    public  double[][] hitRate(double[][] weights ,double[][] data){
+        int userNumber =(int ) (data.length * 0.9);
+        int itemNumber = data[0].length;
+
+        double[][] sortedIndex = new double[userNumber][itemNumber];
+
+        List<Double> line = new ArrayList<Double>();
+//        double[] line = new double[userNumber*itemNumber];
+        for(int i=0; i<userNumber; i++){
+            for(int j=0; j<itemNumber; j++){
+                line.add(data[i][j]);
+            }
+            Collections.sort(line,Collections.<Double>reverseOrder());
+            for (int k=0; k<itemNumber; k++){
+                sortedIndex[i][k] = line.get(k);
+            }
+            line.clear();
+        }
+
+        double[][] hitrate = new double[userNumber][];
+        for(int k=1; k<userNumber; k++){}
+
+    }
 }
