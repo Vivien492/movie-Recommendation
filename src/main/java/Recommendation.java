@@ -59,7 +59,7 @@ public class Recommendation {
 //        double[] line = new double[userNumber*itemNumber];
         for(int i=0; i<userNumber; i++){
             for(int j=0; j<itemNumber; j++){
-                line.add(data[i][j]);
+                line.add(weights[i][j]);
             }
             Collections.sort(line,Collections.<Double>reverseOrder());
             for (int k=0; k<itemNumber; k++){
@@ -68,8 +68,22 @@ public class Recommendation {
             line.clear();
         }
 
-        double[][] hitrate = new double[userNumber][];
-        for(int k=1; k<userNumber; k++){}
+        double[][] hitrate = new double[userNumber][2];
+        for(int k=1; k<userNumber; k++){
+            double counter = 0;
+            hitrate[k][0] = k;
+            for(int i=0; i<userNumber; i++){
+                for (int j=0; j<k; j++){
+                    int itemIndex = (int)sortedIndex[i][j];
+                    if(data[i][itemIndex] == 0){
+                        counter++;
+                    }
+                }
+                hitrate[k][1] = counter/userNumber;
+            }
+        }
+
+        return  hitrate;
 
     }
 }
