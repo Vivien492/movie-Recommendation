@@ -31,9 +31,10 @@ public class MatrixManipulation {
 
     }
 
-    public Double[][] readFile(String filename) {
+    //return a double matrix, with the rating score.
+    public double[][] readFile(String filename) {
         String[] re = new String[0];
-        Double  [][] result  = new Double[671][164979];
+        double  [][] result  = new double[671][164979];
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
             String line = bufferedReader.readLine();
@@ -42,13 +43,10 @@ public class MatrixManipulation {
                 re = line.split(",");
                 int i = Integer.parseInt(re[0])-1;
                 int j = Integer.parseInt(re[1])-1;
-                            System.out.println(i+","+j);
+                double k = Double.parseDouble(re[2]);
 
-
-
-//                result[Integer.parseInt(re[0])-1][Integer.parseInt(re[1])-1] = Float.parseFloat(re[2]);
+                result[i][j] = k;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
