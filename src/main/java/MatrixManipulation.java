@@ -1,5 +1,5 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+import java.util.List;
 
 public class MatrixManipulation {
 
@@ -32,9 +32,9 @@ public class MatrixManipulation {
     }
 
     //return a double matrix, with the rating score.
-    public double[][] readFile(String filename) {
+    public int[][] readFile(String filename) {
         String[] re = new String[0];
-        double  [][] result  = new double[671][164979];
+        int  [][] result  = new int[671][164979];
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
             String line = bufferedReader.readLine();
@@ -45,7 +45,9 @@ public class MatrixManipulation {
                 int j = Integer.parseInt(re[1])-1;
                 double k = Double.parseDouble(re[2]);
 
-                result[i][j] = k;
+                if( k>=3 ){
+                    result[i][j] = 1;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +57,7 @@ public class MatrixManipulation {
 
 
     // 求向量内积
-    public double innerProduct (double[] a,double[] b){
+    public double innerProduct (double[] a,int[] b){
         double result = 0;
         for (int i=0; i<a.length; i++){
             result += a[i]*b[i];
@@ -64,8 +66,8 @@ public class MatrixManipulation {
     }
 
 
-    public double[][] transpose(double[][] a){
-        double [][] trans = new double[a[0].length][a[0].length];
+    public int[][] transpose(int[][] a){
+        int [][] trans = new int[a[0].length][a[0].length];
         for(int i=0; i<a.length; i++){
             for (int j=0; j<a.length; j++){
                 trans[i][j] = a[j][i];
@@ -76,12 +78,30 @@ public class MatrixManipulation {
 
 
     //求向量中元素的和
-    public double sum (double[] a){
-        double result = 0;
+    public int sum (int[] a){
+        int result = 0;
         for (int i=0; i<a.length; i++){
             result += a[i];
         }
         return result;
+    }
+
+    public void writeFile(int[][] matrix,String filePath){
+        try{
+            FileWriter fileWriter = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for(int i=0; i<matrix.length; i++){
+                for(int j=0; j<10; j++){
+                    bufferedWriter.write(matrix[i][j]+" ");
+                }
+                bufferedWriter.write("\r\n");
+            }
+            bufferedWriter.close();
+            fileWriter.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

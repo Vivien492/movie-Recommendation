@@ -14,13 +14,13 @@ public class Recommendation {
     }
 
     //train matrix, m*n, m->user, n->movie
-    public double[][] recomend(double[][] train){
+    public double[][] recomend(int[][] train){
         int row = train.length;
         int col = train[0].length;
 
         double[][] weights = new double[row][col];
 
-        double[][] trasTrain = matrixManipulation.transpose(train);
+        int[][] trasTrain = matrixManipulation.transpose(train);
 
         for (int i=0; i<col; i++){
             for (int j=0; j<col; j++){
@@ -39,7 +39,7 @@ public class Recommendation {
         for(int i=0; i<row; i++){
             for(int j=0; j<col; j++){
                 if(0 == train[i][j]){
-                    train[i][j] = matrixManipulation.innerProduct( weights[j] ,train[i] );
+                    result[i][j] =  matrixManipulation.innerProduct( weights[j] ,train[i] );
                 }
             }
         }
